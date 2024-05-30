@@ -212,9 +212,28 @@ namespace ExamenFinal.DataAcces
             throw new NotImplementedException();
         }
 
-        
-            
-        
+        public void LoadData()
+        {
+            DataTable mascotas = new DataTable();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                string sql = "SELECT * FROM Mascotas";
+                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
+                {
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(sql, connection);
+                    adapter.Fill(mascotas);
+
+                }
+
+
+                //MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                //DataTable table = new DataTable();
+                //adapter.Fill(table);
+                //dataGridView1.DataSource = table;
+            }
+        }
 
     }
 
