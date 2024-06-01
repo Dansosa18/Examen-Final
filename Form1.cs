@@ -51,7 +51,7 @@ namespace ExamenFinal
             string nombredueño= textBoxNombreDueño.Text;
             string telefono = textBoxTelefono.Text;
 
-            int respuesta = Mascotas.AñadirMascota(tipomascota, raza, nombre, sexo, fechaNacimiento, color, nombredueño, Masc.telefono);
+            int respuesta = Mascotas.AñadirMascota(Masc.tipomascota, Masc.raza, Masc.nombre, Masc.sexo, Masc.fechaNacimiento, Masc.color, Masc.nombredueño, Masc.telefono);
 
             if (respuesta>0)
             {
