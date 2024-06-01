@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -16,7 +17,6 @@ namespace ExamenFinal.DataAcces
     {
         private string connectionString = "Server=localhost; Database=examenfinal;Uid=root;Pwd=DMBDAD";
 
-        public object Adapter { get; private set; }
 
         public bool ProbarConexion()
         {
@@ -144,6 +144,7 @@ namespace ExamenFinal.DataAcces
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
+
                 try
                 {
                     connection.Open();
@@ -169,20 +170,17 @@ namespace ExamenFinal.DataAcces
                 finally { connection.Close(); }
             }
         }
-
         public int ActualizarMascota(int id_Mascota, string tipo_mascota, string raza, string nombre, string sexo, DateTime fecha_nacimiento, string color, string nombre_dueño, string telefono)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
-
-                // Actualizar el registro en la base de datos
                 try
                 {
                     connection.Open();
 
-                    string sql = "UPDATE Mascotas SET tipo_mascota = @tipo_mascota, raza = @raza, nombre = @nombre, sexo = @sexo, fecha_nacimiento = @fecha_nacimiento, color = @color, nombre_dueño = @nombre_dueño, telefono = @telefono WHERE id_Mascota = @id_Mascota";
+                    string sql = "UPDATE Mascotas SET tipo_mascota = @tipo_mascota, raza = @raza, nombre = @nombre, sexo = @sexo," +
+                        " fecha_nacimiento = @fecha_nacimiento, color = @color, nombre_dueño = @nombre_dueño, telefono = @telefono WHERE id_Mascota = @id_Mascota";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
-
                     {
                         command.Parameters.AddWithValue("@tipo_mascota", tipo_mascota);
                         command.Parameters.AddWithValue("@raza", raza);
@@ -194,10 +192,8 @@ namespace ExamenFinal.DataAcces
                         command.Parameters.AddWithValue("@telefono", telefono);
                         command.Parameters.AddWithValue("@id_Mascota", id_Mascota);
 
-
                         return command.ExecuteNonQuery();
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -205,36 +201,12 @@ namespace ExamenFinal.DataAcces
                     return -1;
                 }
 
+
         }
 
-        internal int ActualizarMascota(int id_Mascota)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LoadData()
-        {
-            DataTable mascotas = new DataTable();
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT * FROM Mascotas";
-                MySqlConnection mySqlConnection = new MySqlConnection(connectionString);
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(sql, connection);
-                    adapter.Fill(mascotas);
-
-                }
-
-
-                //MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                //DataTable table = new DataTable();
-                //adapter.Fill(table);
-                //dataGridView1.DataSource = table;
-            }
-        }
-
+       
     }
+
+    
 
 }
