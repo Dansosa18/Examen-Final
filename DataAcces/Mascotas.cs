@@ -144,9 +144,10 @@ namespace ExamenFinal.DataAcces
         public int EliminarMascota(int id_Mascota)
         {
             {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
 
-                try
-                {
+                    try
+                    {
                     connection.Open();
 
                     string sql = "DELETE FROM mascotas WHERE id_mascota= @id_Mascota";

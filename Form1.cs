@@ -188,9 +188,8 @@ namespace ExamenFinal
 
             int respuesta = Mascotas.EliminarMascota(id_Mascota);
 
-            MessageBox.Show(respuesta.ToString());
 
-            if (respuesta > 0)
+            if (respuesta == 0)
             {
                 limpiarTextBox();
                 MessageBox.Show("Se elimino correctemente");
@@ -266,7 +265,7 @@ namespace ExamenFinal
 
                 int respuesta = Mascotas.EliminarMascota(id_Mascota);
                 MessageBox.Show(respuesta.ToString());
-                if (respuesta > 0)
+                if (respuesta== 0)
                 {
                     limpiarTextBox();
                     MessageBox.Show("Se elimino correctemente");

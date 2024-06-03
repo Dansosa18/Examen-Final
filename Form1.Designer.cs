@@ -54,6 +54,7 @@
             this.numericUpDownActualizar = new System.Windows.Forms.NumericUpDown();
             this.labelTipoMascota = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Prueba = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMascotas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownEliminar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownActualizar)).BeginInit();
@@ -358,6 +359,16 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.UseWaitCursor = true;
             // 
+            // Prueba
+            // 
+            this.Prueba.Location = new System.Drawing.Point(976, 144);
+            this.Prueba.Name = "Prueba";
+            this.Prueba.Size = new System.Drawing.Size(103, 34);
+            this.Prueba.TabIndex = 27;
+            this.Prueba.Text = "Prueba";
+            this.Prueba.UseVisualStyleBackColor = true;
+            this.Prueba.Click += new System.EventHandler(this.Prueba_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,6 +376,7 @@
             this.BackColor = System.Drawing.Color.NavajoWhite;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1092, 524);
+            this.Controls.Add(this.Prueba);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelTipoMascota);
             this.Controls.Add(this.numericUpDownActualizar);
@@ -429,6 +441,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownActualizar;
         private System.Windows.Forms.Label labelTipoMascota;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button Prueba;
     }
 }
 

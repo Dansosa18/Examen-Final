@@ -8,7 +8,7 @@ namespace ExamenFinal.DataAcces.Paramtros
 {
     internal class Masc
     {
-        public string tipomascota { get; set; }
+        public string Tipomascota { get; set; }
         public string raza { get; set; }
 
         public string nombre { get; set; }
