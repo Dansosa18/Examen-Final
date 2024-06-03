@@ -14,3 +14,26 @@ en base las operaciones CRUD que son :
 
 todo implementado sobre una tabla de una base de datos de una "GUARDERIA DE MASCOTAS"
 
+
+`#0969DA`**PARA LA CREACION DE LA TABLA EN CUALQUIER BASE DE DATOS (DE PREFERENCIA UNA NUEVA)**
+
+CREATE TABLE mascotas (
+  id_mascota INT PRIMARY KEY AUTO_INCREMENT,
+  
+  tipo_mascota VARCHAR(255) NOT NULL,
+  
+  raza VARCHAR(255) NOT NULL,
+  
+  nombre VARCHAR(255) NOT NULL,
+  
+  sexo ENUM('M', 'F') NOT NULL,
+  
+  fecha_nacimiento datetime NOT NULL,
+
+  color VARCHAR(255),
+  
+  nombredueno varchar(255) not null,
+  
+   telefono VARCHAR(20) NOT NULL
+
+);
