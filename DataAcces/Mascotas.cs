@@ -56,7 +56,7 @@ namespace ExamenFinal.DataAcces
             return mascotas;
 
         }
-        public int AñadirMascota(string tipo_mascota, string raza, string nombre, string sexo, DateTime fecha_nacimiento, string color, string nombre_dueño, string telefono)
+        public int AñadirMascota(string tipomascota, string raza, string nombre, string sexo, DateTime fecha_nacimiento, string color, string nombre_dueño, string telefono)
         {
 
 
@@ -66,7 +66,7 @@ namespace ExamenFinal.DataAcces
                 {
                     connection.Open();
 
-                    if (string.IsNullOrEmpty(tipo_mascota))
+                    if (string.IsNullOrEmpty(tipomascota))
                     {
                         MessageBox.Show("Error: El campo 'Tipo Mascota' no puede estar vacío.");
                         return -1;
@@ -117,7 +117,7 @@ namespace ExamenFinal.DataAcces
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@tipo_mascota", tipo_mascota);
+                        command.Parameters.AddWithValue("@tipo_mascota", tipomascota);
                         command.Parameters.AddWithValue("@raza", raza);
                         command.Parameters.AddWithValue("@nombre", nombre);
                         command.Parameters.AddWithValue("@sexo", sexo);
@@ -135,6 +135,7 @@ namespace ExamenFinal.DataAcces
                 {
                     MessageBox.Show("Error al añadir mascota: " + ex.Message);
                     throw;
+                    
                 }
                 finally { connection.Close(); }
             }
@@ -142,7 +143,6 @@ namespace ExamenFinal.DataAcces
         }
         public int EliminarMascota(int id_Mascota)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
 
                 try
@@ -170,6 +170,9 @@ namespace ExamenFinal.DataAcces
                 finally { connection.Close(); }
             }
         }
+     
+        
+
         public int ActualizarMascota(int id_Mascota, string tipo_mascota, string raza, string nombre, string sexo, DateTime fecha_nacimiento, string color, string nombre_dueño, string telefono)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))

@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using ExamenFinal.DataAcces.Paramtros;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Microsoft.Win32;
 
 namespace ExamenFinal
 {
@@ -22,8 +23,8 @@ namespace ExamenFinal
 
         Masc Masc = new Masc();
 
-        private string connectionString;
-        private object connection;
+        ////private string connectionString;
+        ////private object connection;
 
         public Form1()
         {
@@ -42,27 +43,41 @@ namespace ExamenFinal
 
         private void buttonAgregar_Click(object sender, EventArgs e)
         {
-            string tipomascota = textBoxTipoMascota.Text;
-            string raza = textBoxRaza.Text;
-            string nombre = textBoxNombre.Text;
-            string sexo = textBoxSexo.Text;
-            DateTime fechaNacimiento = dateTimePickerFechaNacimiento.Value;
-            string color = textBoxColor.Text;
-            string nombredueño= textBoxNombreDueño.Text;
-            string telefono = textBoxTelefono.Text;
+            Masc.Tipomascota = textBoxTipoMascota.Text;
+            Masc.raza = textBoxRaza.Text;
+            Masc.nombre = textBoxNombre.Text;
+            Masc.sexo = textBoxSexo.Text;
+            Masc.fechaNacimiento = dateTimePickerFechaNacimiento.Value;
+            Masc.color = textBoxColor.Text;
+            Masc.nombredueño = textBoxNombreDueño.Text;
+            Masc.telefono = textBoxTelefono.Text;
+        
+            DialogResult result= MessageBox.Show("¿Está seguro de que desea añadir este registro ? ", "Confirmación", MessageBoxButtons.YesNo);
 
-            int respuesta = Mascotas.AñadirMascota(Masc.tipomascota, Masc.raza, Masc.nombre, Masc.sexo, Masc.fechaNacimiento, Masc.color, Masc.nombredueño, Masc.telefono);
+            if (result== DialogResult.Yes)
+            {
+                try
+                {
+                    int respuest = Mascotas.AñadirMascota(Masc.Tipomascota, Masc.raza, Masc.nombre, Masc.sexo, Masc.fechaNacimiento, Masc.color, Masc.nombredueño, Masc.telefono);
+                if (respuest > 0)
+                    {
+                        MessageBox.Show("La mascota se añadio correctamente");
+                        RecargarDatosDataGridView();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al añadir mascota.");
 
-            if (respuesta>0)
-            {
-                limpiarTextBox();
-                MessageBox.Show("Se añadio correctemente");
-                dataGridViewMascotas.DataSource = Mascotas.LeerMascotas();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al añadir el registro: " + ex.Message);
+
+                }
+
             }
-            else
-            {
-                MessageBox.Show("Hubo un error al añadir Mascota");
-            }
+            
         }
         private void limpiarTextBox()
         {
@@ -112,7 +127,7 @@ namespace ExamenFinal
 
             if (selectedRow != null)
             {
-                Masc.tipomascota = textBoxTipoMascota.Text;
+                Masc.Tipomascota = textBoxTipoMascota.Text;
                 Masc.nombre = textBoxNombre.Text;
                 Masc.raza= textBoxRaza.Text;
                 Masc.sexo= textBoxSexo.Text;
@@ -127,7 +142,7 @@ namespace ExamenFinal
                 {
                     try
                     {
-                        int respuesta = Mascotas.ActualizarMascota(idTarget, Masc.tipomascota, Masc.raza, Masc.nombre, Masc.sexo, Masc.fechaNacimiento, Masc.color, Masc.nombredueño, Masc.telefono);
+                        int respuesta = Mascotas.ActualizarMascota(idTarget, Masc.Tipomascota, Masc.raza, Masc.nombre, Masc.sexo, Masc.fechaNacimiento, Masc.color, Masc.nombredueño, Masc.telefono);
 
                         if (respuesta > 0)
                         {
@@ -165,21 +180,27 @@ namespace ExamenFinal
         }
 
         private void buttonEliminar_Click_1(object sender, EventArgs e)
-        {
+        {           
 
+            // Sirve Para confirmar la eliminacion
+            
             int id_Mascota = (int)numericUpDownEliminar.Value;
 
             int respuesta = Mascotas.EliminarMascota(id_Mascota);
+
+            MessageBox.Show(respuesta.ToString());
 
             if (respuesta > 0)
             {
                 limpiarTextBox();
                 MessageBox.Show("Se elimino correctemente");
-                dataGridViewMascotas.DataSource = Mascotas.LeerMascotas();
+                RecargarDatosDataGridView();
+                limpiarTextBox();
+
             }
             else
             {
-                MessageBox.Show("Hubo un error al eliminar Mascota");
+                MessageBox.Show("Se elimino la mascota, ahora recargue de nuevo");
             }
         }
 
@@ -233,6 +254,39 @@ namespace ExamenFinal
                 textBoxTelefono.Text = string.Empty;
             }
         }
+
+        private void Prueba_Click(object sender, EventArgs e)
+        {
+            // Sirve Para confirmar la eliminacion
+            try
+            {
+
+
+                int id_Mascota = (int)numericUpDownEliminar.Value;
+
+                int respuesta = Mascotas.EliminarMascota(id_Mascota);
+                MessageBox.Show(respuesta.ToString());
+                if (respuesta > 0)
+                {
+                    limpiarTextBox();
+                    MessageBox.Show("Se elimino correctemente");
+                    RecargarDatosDataGridView();
+                    limpiarTextBox();
+
+                }
+                else
+                {
+                    MessageBox.Show("Se elimino la mascota, ahora recargue de nuevo");
+                }
+
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Error al eliminar mascota " + ex.Message);
+                throw;
+            }
+        }
     }
+    
 
 }
